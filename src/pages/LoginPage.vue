@@ -1,7 +1,12 @@
 <template>
   <q-page class="flex flex-center bg-grey-2">
-    <q-card flat style="width: 500px; height: 250px" class="flex flex-center">
-      <q-card-section>
+    <q-card flat style="width: 500px">
+      <q-card-section class="column fit">
+        <div class="col flex flex-center q-py-lg">
+          <div class="text-h3">
+            {{ $t('common.appName') }}
+          </div>
+        </div>
         <q-btn
           :disable="!discordLoginUrl"
           :label="$t('auth.loginWithDiscord')"

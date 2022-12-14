@@ -11,7 +11,11 @@
 const { configure } = require('quasar/wrappers')
 const path = require('path')
 
-module.exports = configure(function (ctx) {
+const env = require('dotenv-defaults').config({
+  defaults: './.env.defaults',
+}).parsed
+
+module.exports = configure(function (/* ctx */) {
   return {
     eslint: {
       // fix: true,
@@ -50,7 +54,8 @@ module.exports = configure(function (ctx) {
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#build
     build: {
       target: {
-        browser: ['es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1'],
+        // browser: ['es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1'],
+        browser: ['es2020'],
         node: 'node16',
       },
 
@@ -63,10 +68,7 @@ module.exports = configure(function (ctx) {
 
       // publicPath: '/',
       // analyze: true,
-      env: require('dotenv-defaults').config({
-        defaults: './.env.defaults',
-        debug: ctx.dev,
-      }).parsed,
+      env,
       // rawDefine: {}
       // ignorePublicFolder: true,
       // minify: false,
@@ -93,8 +95,13 @@ module.exports = configure(function (ctx) {
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
     devServer: {
       // https: true
-      open: true, // opens browser window automatically
+      open: false, // opens browser window automatically
       port: 9080,
+      hmr: {
+        clientPort: env?.HMR_PORT ? parseInt(env?.HMR_PORT) : undefined,
+        //   host: 'https://wp-test.jonfelixrico.dev',
+        //   protocol: 'wss',
+      },
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework
@@ -112,7 +119,7 @@ module.exports = configure(function (ctx) {
       // directives: [],
 
       // Quasar plugins
-      plugins: ['LocalStorage'],
+      plugins: ['Loading'],
     },
 
     // animations: 'all', // --- includes all animations

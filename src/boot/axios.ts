@@ -1,10 +1,11 @@
 import { boot } from 'quasar/wrappers'
 import axios, { AxiosInstance } from 'axios'
-import { API_TOKEN } from 'src/composables/use-api.composable'
+import { API_TOKEN } from 'src/composables/api.composable'
 
 declare module '@vue/runtime-core' {
   interface ComponentCustomProperties {
     $axios: AxiosInstance
+    $api: AxiosInstance
   }
 }
 
